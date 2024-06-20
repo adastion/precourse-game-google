@@ -1,4 +1,4 @@
-import { getCoordsGoogle, subscribe } from "../src/data/state.js";
+import { getCoordsGoogle, subscribe } from "../data/state.js";
 
 export function Cell(x, y) {
   subscribe(() => {
