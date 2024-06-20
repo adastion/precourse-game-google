@@ -1,4 +1,5 @@
 import { getGridSize } from "../data/state.js"
+import { Cell } from "./Cell.js"
 
 
 
@@ -10,11 +11,9 @@ export function Grid() {
     const rowsElement = document.createElement("tr")
     
     for (let x = 0; x < gridSize.x; x++) {
-      const columnsElement = document.createElement("td")
-      columnsElement.style = "width: 50px; height: 50px; border: 2px solid black"
-      rowsElement.append(columnsElement)
+      const cellElement = Cell(x, y)  
 
-
+      rowsElement.append(cellElement)
     }
     gridSizeElement.append(rowsElement)
   }

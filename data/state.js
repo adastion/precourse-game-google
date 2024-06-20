@@ -1,14 +1,20 @@
 const _state = {
-  catch: 2,
-  miss: 3,
+  catch: 0,
+  miss: 0,
   grid: {
-    x: 4,
-    y: 4,
+    x: 5,
+    y: 5,
   },
   coords: {
     google: {
-      x: 0,
-      y: 0
+      current: {
+        x: 0,
+        y: 0
+      },
+      previous: {
+        x: 0,
+        y: 0
+      }
     },
     catch: {
       x: 0,
@@ -33,6 +39,26 @@ export function subscribe(subscriber) {
   subscribers.push(subscriber)
 }
 
+function _moveGoogleToRendomPosition() {
+  let newX = null
+  let newY = null
+
+  do {
+    newX = _getRandom(_state.grid.x - 1)
+    newY = _getRandom(_state.grid.y - 1)
+  } while (_state.coords.google.current.x === newX
+    && _state.coords.google.current.y === newY
+  ) {
+    _state.coords.google.current.x = newX
+    _state.coords.google.current.y = newY
+  }
+}
+
+function _getRandom(N) {
+  return Math.floor(Math.random() * (N + 1))
+}
+
+// getters
 export const getPoints = () => {
   return {
     catch: _state.catch,
@@ -44,9 +70,13 @@ export function getGridSize() {
   return _state.grid
 }
 
+export function getCoordsGoogle() {
+  return _state.coords.google
+}
+
 
 setInterval(() => {
-  _state.catch++
+  _moveGoogleToRendomPosition()
 
   _notify()
-}, 1000)
+}, 800)
