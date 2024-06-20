@@ -6,7 +6,7 @@ export function Cell(x, y) {
   })
 
   const cell = document.createElement("td")
-  cell.style = "text-align: center; width: 50px; height: 50px; border: 2px solid gray; border-radius: 3px"
+  cell.style = "text-align: center; width: 50px; height: 50px; border: 2px solid gray; border-radius: 20%"
 
   _update(x, y, cell)
 
@@ -20,6 +20,6 @@ function _update(x, y, cell) {
   if (x === coordsGogle.current.x 
       && y === coordsGogle.current.y
   ) {
-    cell.textContent = "G"
+    cell.textContent = "G🍇"
   }
 }

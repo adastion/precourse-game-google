@@ -16,11 +16,11 @@ const _state = {
         y: 0
       }
     },
-    catch: {
+    plaeyr1: {
       x: 0,
       y: 0
     },
-    miss: {
+    plaeyr2: {
       x: 0,
       y: 0
     }
@@ -58,6 +58,27 @@ function _getRandom(N) {
   return Math.floor(Math.random() * (N + 1))
 }
 
+//
+let _intervalId = null
+
+function _startSetInterval() {
+  return setInterval(() => {
+        _moveGoogleToRendomPosition()
+        _notify()
+      }, 800)
+}
+
+export function startingGameplay() {
+  _intervalId = _startSetInterval()
+}
+
+export function stopingGameplay() {
+  if(_intervalId !== null) {
+    clearInterval(_intervalId)
+    _intervalId = null
+  }
+}
+
 // getters
 export const getPoints = () => {
   return {
@@ -74,9 +95,3 @@ export function getCoordsGoogle() {
   return _state.coords.google
 }
 
-
-setInterval(() => {
-  _moveGoogleToRendomPosition()
-
-  _notify()
-}, 800)
