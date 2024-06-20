@@ -1,4 +1,4 @@
-import { startingGameplay, stopingGameplay } from "./data/state.js";
+import { startingGameplay, stopingGameplay } from "./src/data/state.js";
 import { Grid } from "./ui/Grid.js";
 import { getPoints, subscribe } from "/data/state.js"
 import { StatusGame } from '/ui/StatusGame.js';

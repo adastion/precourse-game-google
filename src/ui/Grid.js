@@ -1,4 +1,4 @@
-import { getGridSize } from "../data/state.js"
+import { getGridSize } from "../src/data/state.js"
 import { Cell } from "./Cell.js"
 
 
