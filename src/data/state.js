@@ -63,9 +63,9 @@ let _intervalId = null
 
 function _startSetInterval() {
   return setInterval(() => {
-        _moveGoogleToRendomPosition()
-        _notify()
-      }, 800)
+    _moveGoogleToRendomPosition()
+    _notify()
+  }, 800)
 }
 
 export function startingGameplay() {
@@ -73,7 +73,7 @@ export function startingGameplay() {
 }
 
 export function stopingGameplay() {
-  if(_intervalId !== null) {
+  if (_intervalId !== null) {
     clearInterval(_intervalId)
     _intervalId = null
   }
@@ -94,4 +94,21 @@ export function getGridSize() {
 export function getCoordsGoogle() {
   return _state.coords.google
 }
+
+// setters
+
+export function setCatchGoogle() {
+  _state.catch += 1
+  _notify()
+}
+
+export function setMissGoogle() {
+  setInterval(() => {
+
+    _state.miss += 1
+  }, 1500)
+  _notify()
+}
+
+
 
