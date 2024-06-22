@@ -1,6 +1,18 @@
+export const GAME_STATE = {
+  beginning: "beginning",
+  game: "game",
+  finishGame: {
+    win: "win",
+    lose: "lose",
+  },
+}
+
 const _state = {
-  catch: 0,
-  miss: 0,
+  gameStatus: GAME_STATE.finishGame.lose,
+  score: {
+    catchCount: 0,
+    missCount: 0,
+  },
   grid: {
     x: 5,
     y: 5,
@@ -26,8 +38,6 @@ const _state = {
     }
   }
 }
-
-
 
 let subscribers = []
 
@@ -64,27 +74,35 @@ let _intervalId = null
 function _startSetInterval() {
   return setInterval(() => {
     _moveGoogleToRendomPosition()
+    _setCountMissGoogle()
     _notify()
   }, 800)
 }
 
 export function startingGameplay() {
+  _state.gameStatus = GAME_STATE.game
   _intervalId = _startSetInterval()
+  _notify()
 }
 
-export function stopingGameplay() {
+function _stopingGameplay() {
   if (_intervalId !== null) {
     clearInterval(_intervalId)
     _intervalId = null
+    // _state.gameStatus = GAME_STATE.beginning
   }
 }
 
 // getters
 export const getPoints = () => {
   return {
-    catch: _state.catch,
-    miss: _state.miss
+    catch: _state.score.catchCount,
+    miss: _state.score.missCount
   }
+}
+
+export function getSatausGame() {
+  return _state.gameStatus
 }
 
 export function getGridSize() {
@@ -98,17 +116,28 @@ export function getCoordsGoogle() {
 // setters
 
 export function setCatchGoogle() {
-  _state.catch += 1
+  _state.score.catchCount++
   _notify()
 }
 
-export function setMissGoogle() {
-  setInterval(() => {
+function _setCountMissGoogle() {
+  _state.score.missCount++
+}
 
-    _state.miss += 1
-  }, 1500)
+export function setStatusWin() {
+  _stopingGameplay()
+  _state.gameStatus = GAME_STATE.finishGame.win
   _notify()
 }
 
+export function setStatusLose() {
+  _stopingGameplay()
+  _state.gameStatus = GAME_STATE.finishGame.lose
+  _notify()
+}
 
-
+export function resetGame() {
+  _stopingGameplay()
+  _state.gameStatus = GAME_STATE.beginning
+  _notify()
+} 

@@ -1,22 +1,43 @@
-import { startingGameplay, stopingGameplay } from "./src/data/state.js";
-import { Button } from "./src/ui/Button.js";
-import { Grid } from "./src/ui/Grid.js";
+import { GAME_STATE, getSatausGame, subscribe } from "./src/data/state.js";
+import { Beginning } from "./src/ui/Beginning.js";
+import { Grid } from './src/ui/Grid.js';
+import { Miss } from './src/ui/Miss.js';
 import { StatusGame } from './src/ui/StatusGame.js';
+import { Win } from './src/ui/Win.js';
 
-
-const rootElement = document.getElementById("root")
-
-function App() {
+(function App() {
+  const rootElement = document.getElementById("root")
   rootElement.style = "display: grid; justify-content: center"
-  rootElement.innerHTML = ""
-  const status = StatusGame()
+  
+  subscribe(() => {
+    rootElement.innerHTML = ""
+    _updateApp(rootElement)
+  })
+  _updateApp(rootElement)
+})()
 
-  const tabelGame = Grid()
+function _updateApp(parentElement) {
+  const gameState = GAME_STATE
+  const gameStatus = getSatausGame()
 
-  const buttonBeginningGame = Button(startingGameplay, "start game")
-  const buttonStopingGame = Button(stopingGameplay, "stop game")
+  if (gameStatus === gameState.beginning) {
+    const begginningGame = Beginning()
+    parentElement.append(begginningGame)
+  }
 
-  rootElement.append(status, tabelGame, buttonBeginningGame, buttonStopingGame)
+  if (gameStatus === gameState.game) {
+    const gameElement = StatusGame()
+    const tabelGame = Grid()
+    parentElement.append(gameElement, tabelGame)
+  }
+
+  if (gameStatus === gameState.finishGame.lose) {
+    const loseElement = Miss()
+    parentElement.append(loseElement)
+  }
+  
+  if (gameStatus === gameState.finishGame.win) {
+    const winElement = Win()
+    parentElement.append(winElement)
+  }
 }
-
-App()
