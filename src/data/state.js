@@ -8,7 +8,7 @@ export const GAME_STATE = {
 }
 
 const _state = {
-  gameStatus: GAME_STATE.finishGame.lose,
+  gameStatus: GAME_STATE.beginning,
   score: {
     catchCount: 0,
     missCount: 0,
@@ -117,6 +117,10 @@ export function getCoordsGoogle() {
 
 export function setCatchGoogle() {
   _state.score.catchCount++
+
+  if (_state.score.missCount > 0) {
+    _state.score.missCount--
+  }
   _notify()
 }
 
