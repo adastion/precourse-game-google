@@ -1,4 +1,4 @@
-export function getStatuGame() {
+export function getDataStatus() {
   return _GAME_STATUS
 }
 export function getDataSettings() {

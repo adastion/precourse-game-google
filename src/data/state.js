@@ -1,6 +1,6 @@
-import { getDataSettings, getStatuGame } from "./variables.js"
+import { getDataSettings, getDataStatus} from "./variables.js"
 
-const GAME_STATUS = getStatuGame()
+const GAME_STATUS = getDataStatus()
 const SETTINGS_DATA = getDataSettings()
 
 const _state = {
@@ -10,7 +10,7 @@ const _state = {
     pointsToLose: Math.min(...SETTINGS_DATA.maxPointsToLose),
     isSoundOn: SETTINGS_DATA.isSoundOn
   },
-  gameStatus: GAME_STATUS.begininng,
+  gameStatus: GAME_STATUS.finish.win,
   gridSize: {
     columns: Math.min(...SETTINGS_DATA.gridSize),
     rows: Math.min(...SETTINGS_DATA.gridSize)
@@ -55,6 +55,10 @@ export function getScore() {
 
 export function getCoordsGoogle() {
   return _state.coords
+}
+
+export function getStatus() {
+  return _state.gameStatus
 }
 
 // 

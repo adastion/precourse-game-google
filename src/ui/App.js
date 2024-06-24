@@ -1,17 +1,47 @@
-import { Button } from "./Button.js"
+import { getStatus, subscrube } from "../data/state.js";
+import { getDataStatus } from "../data/variables.js";
+import { Button } from "./Button.js";
+import { Settings } from './Settings.js';
 import { GameStatusPanel } from './Game-panel.js';
-import { Gameplay } from './Gameplay.js';
-import { Settings } from "./Settings.js";
-import { Win } from "./Win.js";
-import { Select } from './Select.js';
-import { Cell } from './Cell.js';
+import { Win } from './Win.js';
 import { Lose } from './Lose.js';
+import { Gameplay } from './Gameplay.js';
 
-export function App () {
+export function App() {
   const appElement = document.getElementById("root")
-  appElement.textContent = "Hi!!!!"
 
-  
-  appElement.append(Button(), Cell(), GameStatusPanel(), Gameplay(), Lose(),Select(),Settings(), Win() )
-  return appElement
+  subscrube(() => {
+    _updateApp(appElement)
+  })
+  _updateApp(appElement)
+
+}
+
+function _updateApp(rootElement) {
+  rootElement.innerHtml = ""
+
+  const gameState = getStatus()
+
+  if (gameState === getDataStatus().begininng) {
+    const settingsElement = Settings()
+    const buttonElement = Button(() => { }, "start game")
+    rootElement.append(settingsElement, buttonElement)
+  }
+
+  if (gameState === getDataStatus().game) {
+    const gamePanelElement = GameStatusPanel()
+    const gridElement = Gameplay()
+
+    rootElement.append(gamePanelElement, gridElement)
+  }
+
+  if (gameState === getDataStatus().finish.win) {
+    const winElement = Win()
+    rootElement.append(winElement)
+  }
+
+  if (gameState === getDataStatus().finish.lose) {
+    const loseElement = Lose()
+    rootElement.append(loseElement)
+  }
 }

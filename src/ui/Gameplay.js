@@ -1,3 +1,3 @@
 export function Gameplay() {
-  return "GAmeplay"
+  return "Gameplay"
 }
