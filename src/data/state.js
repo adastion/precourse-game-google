@@ -1,4 +1,4 @@
-import { getDataSettings, getDataStatus} from "./variables.js"
+import { getDataSettings, getDataStatus} from "./constants.js"
 
 const GAME_STATUS = getDataStatus()
 const SETTINGS_DATA = getDataSettings()
@@ -10,7 +10,7 @@ const _state = {
     pointsToLose: Math.min(...SETTINGS_DATA.maxPointsToLose),
     isSoundOn: SETTINGS_DATA.isSoundOn
   },
-  gameStatus: GAME_STATUS.finish.win,
+  gameStatus: GAME_STATUS.game,
   gridSize: {
     columns: Math.min(...SETTINGS_DATA.gridSize),
     rows: Math.min(...SETTINGS_DATA.gridSize)

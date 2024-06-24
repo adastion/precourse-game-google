@@ -1,11 +1,10 @@
+import { getDataStatus } from "../data/constants.js";
 import { getStatus, subscrube } from "../data/state.js";
-import { getDataStatus } from "../data/variables.js";
 import { Button } from "./Button.js";
-import { Settings } from './Settings.js';
+import { Finish } from './Finish.js';
 import { GameStatusPanel } from './Game-panel.js';
-import { Win } from './Win.js';
-import { Lose } from './Lose.js';
 import { Gameplay } from './Gameplay.js';
+import { Settings } from './Settings.js';
 
 export function App() {
   const appElement = document.getElementById("root")
@@ -36,12 +35,12 @@ function _updateApp(rootElement) {
   }
 
   if (gameState === getDataStatus().finish.win) {
-    const winElement = Win()
-    rootElement.append(winElement)
+    const FinishElement = Finish(getDataStatus().finish.win)
+    rootElement.append(FinishElement)
   }
 
   if (gameState === getDataStatus().finish.lose) {
-    const loseElement = Lose()
-    rootElement.append(loseElement)
+    const FinishElement = Finish(getDataStatus().finish.lose)
+    rootElement.append(FinishElement)
   }
 }
