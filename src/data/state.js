@@ -1,7 +1,4 @@
-import { getDataSettings, getDataStatus} from "./constants.js"
-
-const GAME_STATUS = getDataStatus()
-const SETTINGS_DATA = getDataSettings()
+import { GAME_STATUS, SETTINGS_DATA } from "./constants.js"
 
 const _state = {
   settings: {

@@ -1,4 +1,4 @@
-import { getDataStatus } from "../data/constants.js";
+import { GAME_STATUS } from "../data/constants.js";
 import { getStatus, subscrube } from "../data/state.js";
 import { Button } from "./Button.js";
 import { Finish } from './Finish.js';
@@ -18,29 +18,28 @@ export function App() {
 
 function _updateApp(rootElement) {
   rootElement.innerHtml = ""
-
   const gameState = getStatus()
 
-  if (gameState === getDataStatus().begininng) {
+  if (gameState === GAME_STATUS.begininng) {
     const settingsElement = Settings()
     const buttonElement = Button(() => { }, "start game")
     rootElement.append(settingsElement, buttonElement)
   }
 
-  if (gameState === getDataStatus().game) {
+  if (gameState === GAME_STATUS.game) {
     const gamePanelElement = GameStatusPanel()
     const gridElement = Gameplay()
 
     rootElement.append(gamePanelElement, gridElement)
   }
 
-  if (gameState === getDataStatus().finish.win) {
-    const FinishElement = Finish(getDataStatus().finish.win)
+  if (gameState === GAME_STATUS.finish.win) {
+    const FinishElement = Finish(GAME_STATUS.finish.win)
     rootElement.append(FinishElement)
   }
 
-  if (gameState === getDataStatus().finish.lose) {
-    const FinishElement = Finish(getDataStatus().finish.lose)
+  if (gameState === GAME_STATUS.finish.lose) {
+    const FinishElement = Finish(GAME_STATUS.finish.lose)
     rootElement.append(FinishElement)
   }
 }
