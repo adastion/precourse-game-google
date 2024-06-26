@@ -8,7 +8,6 @@ export function GameStatusPanel() {
   const listInfo = document.createElement("ul")
 
   const dataAsArray = Object.entries(settingsData)
-  console.log(dataAsArray)
 
   dataAsArray.forEach(setting => {
     const itemElement = document.createElement("li")

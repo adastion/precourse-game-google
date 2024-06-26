@@ -33,7 +33,7 @@ function _notify() {
   _subscribers.forEach(subscruber => subscruber())
 }
 
-export function subscrube(subscriber) {
+export function subscribe(subscriber) {
   _subscribers.push(subscriber)
 }
 

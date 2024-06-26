@@ -1,5 +1,5 @@
 import { GAME_STATUS } from "../data/constants.js";
-import { getStatus, subscrube } from "../data/state.js";
+import { getStatus, subscribe } from "../data/state.js";
 import { Button } from "./Button.js";
 import { Finish } from './Finish.js';
 import { GameStatusPanel } from './Game-panel.js';
@@ -9,7 +9,7 @@ import { Settings } from './Settings.js';
 export function App() {
   const appElement = document.getElementById("root")
 
-  subscrube(() => {
+  subscribe(() => {
     _updateApp(appElement)
   })
   _updateApp(appElement)
