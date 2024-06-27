@@ -14,7 +14,7 @@ const _state = {
     miss: 0,
     catch: 0
   },
-  gameStatus: GAME_STATUS.game,
+  gameStatus: GAME_STATUS.beginning,
   coords: {
     google: {
       current: {
@@ -68,7 +68,17 @@ function _getRandom(n) {
   return Math.floor(Math.random() * (n + 1))
 }
 
-setInterval(() => {
-  _moveGoogleToRandomPosition()
+let _intervalId = null
+
+export function _runStepInterval() {
+  _intervalId = setInterval(() => {
+    _moveGoogleToRandomPosition()
+    _notify()
+  }, 1200)
+}
+
+export function start() {
+  _state.gameStatus = GAME_STATUS.game
+  _runStepInterval()
   _notify()
-}, 1200)
+}
