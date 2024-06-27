@@ -3,9 +3,10 @@ import { getCoordsGoogle, getGridSize } from "../data/state.js";
 const rootElement = document.getElementById("root")
 
 export function App() {
+  rootElement.innerHTML = ""
   const appElement = document.createElement("div")
   appElement.textContent = "Test Hi)"
-
+  
   const gridElement = document.createElement("table")
   gridElement.style = "border: collapse"
   const { rows, columns } = getGridSize()
