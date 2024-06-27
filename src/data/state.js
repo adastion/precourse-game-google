@@ -38,6 +38,10 @@ export function getCoordsGoogle() {
   return _state.coords.google
 }
 
+export function getGameStatus() {
+  return _state.gameStatus
+}
+
 let _subscribers = []
 
 function _notify() {
