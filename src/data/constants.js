@@ -10,6 +10,6 @@ export const GAME_STATUS = {
   game:"game",
   finish: {
     lose: "lose",
-    window: "win"
+    win: "win"
   }
 }

@@ -82,3 +82,9 @@ export function start() {
   _runStepInterval()
   _notify()
 }
+
+export function stop() {
+  _state.gameStatus = GAME_STATUS.beginning
+  clearInterval(_intervalId)
+  _notify()
+}

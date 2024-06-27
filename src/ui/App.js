@@ -1,6 +1,7 @@
 import { GAME_STATUS } from "../data/constants.js";
-import { getGameStatus, subscribe } from "../data/state.js";
+import { getGameStatus, start, stop, subscribe } from "../data/state.js";
 import { Beginning } from "./beginning/Beginning.js";
+import { Button } from "./button/Button.js";
 import { Gameplay } from "./gameplay/Gameplay.js";
 
 const rootElement = document.getElementById("root")
@@ -20,6 +21,7 @@ export function App() {
 function _updateApp(parentElement) {
   const gameStatus = getGameStatus()
   parentElement.innerHTML = ""
+  const buttonStopElement = Button(start, "paly again")
 
   if (gameStatus === GAME_STATUS.beginning) {
     const beginningElement = Beginning()
@@ -27,16 +29,17 @@ function _updateApp(parentElement) {
   }
 
   if (gameStatus === GAME_STATUS.game) {
+    const gamePanel = "game panel"
     const gridElement = Gameplay()
-    parentElement.append(gridElement)
+    parentElement.append(gamePanel, gridElement, Button(stop, "stop"))
   }
 
   if (gameStatus === GAME_STATUS.finish.lose) {
     // const loseElement = Lose()
-    parentElement.append(Lose)
+    parentElement.append("Lose", buttonStopElement)
   }
   if (gameStatus === GAME_STATUS.finish.win) {
     // const winElement = Win()
-    parentElement.append(Win)
+    parentElement.append("Win", buttonStopElement)
   }
 }
