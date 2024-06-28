@@ -1,3 +1,3 @@
-import { App } from "./src/ui/app.js";
+import { App } from "./src/ui/App.js";
 
 App()
