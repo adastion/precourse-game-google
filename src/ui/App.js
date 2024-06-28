@@ -25,7 +25,7 @@ function _updateApp(parentElement) {
 
   if (gameStatus === GAME_STATUS.beginning) {
     const beginningElement = Beginning()
-    parentElement.append(beginningElement)
+    parentElement.append(beginningElement,)
   }
 
   if (gameStatus === GAME_STATUS.game) {

@@ -42,6 +42,10 @@ export function getGameStatus() {
   return _state.gameStatus
 }
 
+export function getSettings() {
+  return _state.settings
+}
+
 let _subscribers = []
 
 function _notify() {
