@@ -1,5 +1,5 @@
 import { GAME_STATUS } from "../data/constants.js";
-import { getGameStatus, getScoreCatch, start, stop, subscribe } from "../data/state.js";
+import { getGameStatus, getScore, start, stop, subscribe } from "../data/state.js";
 import { Beginning } from "./beginning/Beginning.js";
 import { Button } from "./button/Button.js";
 import { Gameplay } from "./gameplay/Gameplay.js";
@@ -29,7 +29,7 @@ function _updateApp(parentElement) {
   }
 
   if (gameStatus === GAME_STATUS.game) {
-    const datasetToPanel = getScoreCatch()
+    const datasetToPanel = getScore()
     
     const gamePanel = document.createElement("div")
     gamePanel.style = "display: flex; align-item: center; justify-content: center"

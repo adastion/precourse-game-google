@@ -14,7 +14,7 @@ const _state = {
     miss: 0,
     catch: 0
   },
-  gameStatus: GAME_STATUS.beginning,
+  gameStatus: GAME_STATUS.game,
   coords: {
     google: {
       current: {
@@ -26,7 +26,19 @@ const _state = {
         y: 0
       }
     },
+    players: {
+      "1": {
+        x: 2,
+        y: 3
+      },
+      "2": {
+        x: 3,
+        y: 3
+      }
+    }
   },
+  subscribers: [],
+  intervalId: null
 }
 
 console.log(_state)
@@ -38,6 +50,10 @@ export function getCoordsGoogle() {
   return _state.coords.google
 }
 
+export function getCoordsPlayers() {
+  return _state.coords.players
+}
+
 export function getGameStatus() {
   return _state.gameStatus
 }
@@ -46,44 +62,45 @@ export function getSettings() {
   return _state.settings
 }
 
-export function getScoreCatch() {
+export function getScore() {
   return _state.score
 }
 
-let _subscribers = []
+
+
+
+
+
 
 function _notify() {
-  _subscribers.forEach(subscriber => subscriber())
+  _state.subscribers.forEach(subscriber => subscriber())
 }
 
 export function subscribe(subscriber) {
-  _subscribers.push(subscriber)
+  _state.subscribers.push(subscriber)
 }
 
 function _moveGoogleToRandomPosition() {
   let newX = null
   let newY = null
 
+  const { x, y } = _state.coords.google.current
+  const { columns, rows } = _state.settings.gridSize
+
   do {
-    newX = _getRandom(_state.settings.gridSize.columns - 1)
-    newY = _getRandom(_state.settings.gridSize.rows - 1)
-  } while (newX === _state.coords.google.current.x && newY === _state.coords.google.current.y)
+    newX = _getRandom(columns - 1)
+    newY = _getRandom(rows - 1)
+  } while (newX === x || newY === y)
 
   _state.coords.google.current = { x: newX, y: newY }
-
-  setTimeout(() => {
-    _state.coords.google.previous = { x: newX, y: newY }
-  }, 900)
 }
 
 function _getRandom(n) {
   return Math.floor(Math.random() * (n + 1))
 }
 
-let _intervalId = null
-
 export function _runStepInterval() {
-  _intervalId = setInterval(() => {
+  _state.intervalId = setInterval(() => {
     _moveGoogleToRandomPosition()
     _notify()
   }, 1100)
@@ -97,7 +114,9 @@ export function start() {
 
 export function stop() {
   _state.gameStatus = GAME_STATUS.beginning
-  clearInterval(_intervalId)
+
+  clearInterval(_state.intervalId)
+
   _state.score = { catch: 0, miss: 0 }
   _state.coords.google.current = { x: 0, y: 0 }
   _state.coords.google.previous = { x: 0, y: 0 }
@@ -105,6 +124,6 @@ export function stop() {
 }
 
 export function addPointToWin() {
-  _state.score.catch++
+  // _state.score.catch++
   _notify()
 }
