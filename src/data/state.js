@@ -1,4 +1,4 @@
-import { GAME_STATUS, SETTINGS } from "./constants.js"
+import { DIRECTIONS, GAME_STATUS, SETTINGS } from "./constants.js"
 
 const _state = {
   settings: {
@@ -42,6 +42,8 @@ const _state = {
 }
 
 console.log(_state)
+
+// get data
 export function getGridSize() {
   return _state.settings.gridSize
 }
@@ -50,7 +52,7 @@ export function getCoordsGoogle() {
   return _state.coords.google
 }
 
-export function getCoordsPlayers() {
+export function getPlayers() {
   return _state.coords.players
 }
 
@@ -99,6 +101,24 @@ function _getRandom(n) {
   return Math.floor(Math.random() * (n + 1))
 }
 
+export function _movePlayerPosition(playerName, key) {
+  // _state.coords.players[playerName] = { ..._state.coords.players[playerName] }
+  
+  const position = _state.coords.players[playerName]
+  const newPosition = { ...position }
+  console.log(position)
+
+
+  const updater = {
+    [DIRECTIONS.UP]: () => newPosition.y--,
+    [DIRECTIONS.DOWN]: () => newPosition.y++,
+    [DIRECTIONS.LEFT]: () => newPosition.x--,
+    [DIRECTIONS.RIGHT]: () => newPosition.x++,
+  }
+  updater[key]();
+  _notify()
+}
+
 export function _runStepInterval() {
   _state.intervalId = setInterval(() => {
     _moveGoogleToRandomPosition()
@@ -124,6 +144,6 @@ export function stop() {
 }
 
 export function addPointToWin() {
-  // _state.score.catch++
+  _state.score.catch++
   _notify()
 }

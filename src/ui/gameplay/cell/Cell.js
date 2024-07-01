@@ -1,4 +1,5 @@
-import { addPointToWin, getCoordsGoogle, getCoordsPlayers, subscribe } from "../../../data/state.js";
+import { addPointToWin, getCoordsGoogle, getPlayers, subscribe } from "../../../data/state.js";
+import { Player } from "../player/Player.js";
 
 export function Cell(x, y) {
   const cellElement = document.createElement("td")
@@ -15,8 +16,7 @@ export function Cell(x, y) {
 
 function _updateCell(x, y, parentElement) {
   const coordsGoogle = getCoordsGoogle()
-  const coordsPlayers = Object.entries(getCoordsPlayers())
-  console.log("p", coordsPlayers)
+  const coordsPlayers = Object.entries(getPlayers())
 
   if (x === coordsGoogle.current.x && y === coordsGoogle.current.y) {
     parentElement.style = "cursor: pointer; text-align: center; border: 2px solid green; width: 60px; height: 60px; border-radius: 10px"
@@ -29,10 +29,11 @@ function _updateCell(x, y, parentElement) {
   }
 
   coordsPlayers.forEach(player => {
-    const curentPlayer= player[1]
+    const curentPlayer = player[1]
+    const playerElement = Player(player)
 
-    if (x === curentPlayer.x && y === curentPlayer.y ) {
-      parentElement.textContent = `${player[0]}`
+    if (x === curentPlayer.x && y === curentPlayer.y) {
+      parentElement.append(playerElement)
     }
   })
 }
