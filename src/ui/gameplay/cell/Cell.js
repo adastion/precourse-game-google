@@ -1,4 +1,4 @@
-import { addPointToWin, getCoordsGoogle, getCoordsPlayers, subscribe } from "../../../data/state.js";
+import { getCoordsGoogle, getCoordsPlayers, subscribe } from "../../../data/state.js";
 
 export function Cell(x, y) {
   const cellElement = document.createElement("td")
@@ -16,14 +16,11 @@ export function Cell(x, y) {
 function _updateCell(x, y, parentElement) {
   const coordsGoogle = getCoordsGoogle()
   const coordsPlayers = Object.entries(getCoordsPlayers())
-  console.log("p", coordsPlayers)
 
   if (x === coordsGoogle.current.x && y === coordsGoogle.current.y) {
     parentElement.style = "cursor: pointer; text-align: center; border: 2px solid green; width: 60px; height: 60px; border-radius: 10px"
     parentElement.addEventListener("click", () => {
       parentElement.textContent = "Win!🍄"
-      addPointToWin()
-
     })
     parentElement.append("G🍏")
   }

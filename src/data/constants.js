@@ -7,9 +7,16 @@ export const SETTINGS = {
 
 export const GAME_STATUS = {
   beginning: "beginning",
-  game:"game",
+  game: "game",
   finish: {
     lose: "lose",
     win: "win"
   }
+}
+
+export const DIRECTION = {
+  UP: "up",
+  RIGHT: "right",
+  DOWN: "down",
+  LEFT: "left"
 }
