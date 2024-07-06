@@ -29,7 +29,7 @@ function _updateCell(x, y, parentElement) {
     const curentPlayer= player[1]
 
     if (x === curentPlayer.x && y === curentPlayer.y ) {
-      parentElement.textContent = `${player[0]}`
+      parentElement.textContent = `игрок ${player[0]}`
     }
   })
 }

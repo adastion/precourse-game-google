@@ -1,4 +1,4 @@
-import { GAME_STATUS, SETTINGS } from "./constants.js"
+import { DIRECTION, GAME_STATUS, SETTINGS } from "./constants.js"
 
 const _state = {
   settings: {
@@ -61,6 +61,44 @@ export function getSettings() {
 
 export function getScore() {
   return _state.score
+}
+
+// 
+export function setCoordsPlayer(id, direction) {
+
+  if (id === '1') {
+    switch (direction) {
+      case DIRECTION.UP: 
+      _state.coords.players["1"].y--
+      break
+      case DIRECTION.DOWN: 
+      _state.coords.players["1"].y++
+      break
+      case DIRECTION.LEFT: 
+      _state.coords.players["1"].x--
+      break
+      case DIRECTION.RIGHT: 
+      _state.coords.players["1"].x++
+      break
+    }
+  }
+  if (id === '2') {
+    switch (direction) {
+      case DIRECTION.UP: 
+      _state.coords.players["2"].y--
+      break
+      case DIRECTION.DOWN: 
+      _state.coords.players["2"].y++
+      break
+      case DIRECTION.LEFT: 
+      _state.coords.players["2"].x--
+      break
+      case DIRECTION.RIGHT: 
+      _state.coords.players["2"].x++
+      break
+    }
+  }
+
 }
 
 // 
