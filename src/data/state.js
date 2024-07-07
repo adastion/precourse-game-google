@@ -65,40 +65,31 @@ export function getScore() {
 
 // 
 export function setCoordsPlayer(id, direction) {
+  const gridSize = getGridSize()
+  const playerCoords = _state.coords.players[id]
 
-  if (id === '1') {
-    switch (direction) {
-      case DIRECTION.UP: 
-      _state.coords.players["1"].y--
+  switch (direction) {
+    case DIRECTION.UP:
+      if (playerCoords.y > 0) {
+        playerCoords.y--
+      }
       break
-      case DIRECTION.DOWN: 
-      _state.coords.players["1"].y++
+    case DIRECTION.DOWN:
+      if (playerCoords.y < gridSize.rows - 1) {
+        playerCoords.y++
+      }
       break
-      case DIRECTION.LEFT: 
-      _state.coords.players["1"].x--
+    case DIRECTION.LEFT:
+      if (playerCoords.x > 0) {
+        playerCoords.x--
+      }
       break
-      case DIRECTION.RIGHT: 
-      _state.coords.players["1"].x++
+    case DIRECTION.RIGHT:
+      if (playerCoords.x < gridSize.columns - 1)
+        playerCoords.x++
       break
-    }
   }
-  if (id === '2') {
-    switch (direction) {
-      case DIRECTION.UP: 
-      _state.coords.players["2"].y--
-      break
-      case DIRECTION.DOWN: 
-      _state.coords.players["2"].y++
-      break
-      case DIRECTION.LEFT: 
-      _state.coords.players["2"].x--
-      break
-      case DIRECTION.RIGHT: 
-      _state.coords.players["2"].x++
-      break
-    }
-  }
-
+  _notify()
 }
 
 // 
@@ -116,7 +107,7 @@ function _moveGoogleToRandomPosition() {
 
   const { x, y } = _state.coords.google.current
   const { columns, rows } = _state.settings.gridSize
-  const players = Object.entries(_state.coords.players)
+  const players = Object.entries(getCoordsPlayers())
 
   do {
     newX = _getRandom(columns - 1)
