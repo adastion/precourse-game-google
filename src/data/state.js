@@ -1,4 +1,4 @@
-import { GAME_STATUS, SETTINGS } from "./constants.js"
+import { DIRECTION, GAME_STATUS, SETTINGS } from "./constants.js"
 
 const _state = {
   settings: {
@@ -11,8 +11,9 @@ const _state = {
     isOnSound: SETTINGS.isOnSound
   },
   score: {
-    miss: 0,
-    catch: 0
+    gogle: 0,
+    player1: 0,
+    player2: 0,
   },
   gameStatus: GAME_STATUS.game,
   coords: {
@@ -21,10 +22,6 @@ const _state = {
         x: 0,
         y: 0
       },
-      previous: {
-        x: 0,
-        y: 0
-      }
     },
     players: {
       "1": {
@@ -66,12 +63,36 @@ export function getScore() {
   return _state.score
 }
 
+// 
+export function setCoordsPlayer(id, direction) {
+  const gridSize = getGridSize()
+  const playerCoords = _state.coords.players[id]
 
+  switch (direction) {
+    case DIRECTION.UP:
+      if (playerCoords.y > 0) {
+        playerCoords.y--
+      }
+      break
+    case DIRECTION.DOWN:
+      if (playerCoords.y < gridSize.rows - 1) {
+        playerCoords.y++
+      }
+      break
+    case DIRECTION.LEFT:
+      if (playerCoords.x > 0) {
+        playerCoords.x--
+      }
+      break
+    case DIRECTION.RIGHT:
+      if (playerCoords.x < gridSize.columns - 1)
+        playerCoords.x++
+      break
+  }
+  _notify()
+}
 
-
-
-
-
+// 
 function _notify() {
   _state.subscribers.forEach(subscriber => subscriber())
 }
@@ -86,11 +107,13 @@ function _moveGoogleToRandomPosition() {
 
   const { x, y } = _state.coords.google.current
   const { columns, rows } = _state.settings.gridSize
+  const players = Object.entries(getCoordsPlayers())
 
   do {
     newX = _getRandom(columns - 1)
     newY = _getRandom(rows - 1)
-  } while (newX === x || newY === y)
+  } while (players.some(player => player[0].x === newX && player[0].y && player[1].x === newX && player[1].y)
+  && newX === x && newY === y)
 
   _state.coords.google.current = { x: newX, y: newY }
 }
@@ -104,6 +127,10 @@ export function _runStepInterval() {
     _moveGoogleToRandomPosition()
     _notify()
   }, 1100)
+}
+
+if (_state.gameStatus === GAME_STATUS.game) {
+  _runStepInterval()
 }
 
 export function start() {
@@ -120,10 +147,5 @@ export function stop() {
   _state.score = { catch: 0, miss: 0 }
   _state.coords.google.current = { x: 0, y: 0 }
   _state.coords.google.previous = { x: 0, y: 0 }
-  _notify()
-}
-
-export function addPointToWin() {
-  // _state.score.catch++
   _notify()
 }
